@@ -8,31 +8,31 @@ def converter_geografico_para_utm(graus, minutos, segundos, direcao, longitude=F
 
     # Converter para UTM
     if longitude:
-        easting, northing, zone_number, zone_letter = utm.from_latlon(0, decimal)
+        easting, northing, _, _ = utm.from_latlon(0, decimal)
     else:
-        easting, northing, zone_number, zone_letter = utm.from_latlon(decimal, 0)
+        easting, northing, _, _ = utm.from_latlon(decimal, 0)
 
-    return easting, northing, zone_number, zone_letter
+    # Formatar as coordenadas UTM
+    if longitude:
+        coordenada = f"{easting:.3f}E"
+    else:
+        coordenada = f"{northing:.3f}N"
+
+    return coordenada
 
 # Exemplo de uso da função
 latitude_graus = 20
-latitude_minutos = 30
-latitude_segundos = 32
+latitude_minutos = 0
+latitude_segundos = 0.0
 latitude_direcao = 'S'
 
 longitude_graus = 54
-longitude_minutos = 39
-longitude_segundos = 48
+longitude_minutos = 0
+longitude_segundos = 0.0
 longitude_direcao = 'W'
-'''
-easting, northing, zone_number, zone_letter = converter_geografico_para_utm(latitude_graus, latitude_minutos, latitude_segundos, latitude_direcao)
-print(f"Latitude UTM: {easting}, {northing}, Zone: {zone_number}{zone_letter}")
 
-easting, northing, zone_number, zone_letter = converter_geografico_para_utm(longitude_graus, longitude_minutos, longitude_segundos, longitude_direcao, longitude=True)
-print(f"Longitude UTM: {easting}, {northing}, Zone: {zone_number}{zone_letter}")
-'''
-easting, northing, zone_number, zone_letter = converter_geografico_para_utm(latitude_graus, latitude_minutos, latitude_segundos, latitude_direcao)
-print(f"Latitude UTM: {northing:.4f}")
+longitude = converter_geografico_para_utm(longitude_graus, longitude_minutos, longitude_segundos, longitude_direcao, longitude=True)
+print(f"Longitude UTM: {longitude}")
 
-easting, northing, zone_number, zone_letter = converter_geografico_para_utm(longitude_graus, longitude_minutos, longitude_segundos, longitude_direcao, longitude=True)
-print(f"Longitude UTM: {easting:.4f}")
+latitude = converter_geografico_para_utm(latitude_graus, latitude_minutos, latitude_segundos, latitude_direcao)
+print(f"Latitude UTM: {latitude}")
